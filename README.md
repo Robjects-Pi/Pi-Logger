@@ -104,6 +104,24 @@ if __name__ == '__main__':
     log_data()
 ```
 
+
+### Explanation
+
+- The script first imports the necessary modules: `os`, `csv`, `psutil`, and `datetime`.
+- It defines the name of the CSV file to store the log entries.
+- The script checks if the CSV file exists. If it does not, it creates the file and writes the header row with the column names.
+- The `get_system_diagnostics` function collects various system metrics using the `psutil` library:
+  - CPU usage as a percentage
+  - Memory usage in megabytes
+  - Disk usage as a percentage
+  - Network statistics (bytes sent and received)
+  - System temperature (for Raspberry Pi)
+  - The function returns these metrics as a list.
+  - The `log_data` function calls `get_system_diagnostics` to get the system metrics and appends them to the CSV file.
+  - The script then runs the `log_data` function when executed directly (not imported as a module).
+  - The script can be run manually or set up as a cron job to log the system diagnostics at regular intervals.
+
+
 ### Running the Script
 
 - To run the script manually, use the command:
@@ -120,8 +138,13 @@ if __name__ == '__main__':
   0 * * * * /usr/bin/python3 /home/pi/raspberry_pi_logger/logger.py
   ```
 
+For more information on cron jobs, I've written a [README.md](./raspberry_pi_logger/autorun/cron/README.md) file in a [subdirectory](./raspberry_pi_logger/autorun/cron/.) on configuring cron jobs on a Raspberry Pi, including how to automate the script to run at regular intervals.
+directory on configuring cron jobs on a Raspberry Pi, including how to automate the script to run at regular intervals.
+
+Please note that the script is designed to run on a Raspberry Pi with the default configuration. If you are using a different system or have customized your setup, you may need to modify the script to work with your specific hardware and software configuration.
+
 ### Conclusion
 
-This Raspberry Pi diagnostics logger is a simple yet effective way to monitor your system's health over time. The data collected can be useful for troubleshooting and performance monitoring. 
+The Raspberry Pi diagnostics logger provides a simple way to monitor system performance and collect data for analysis. By logging key metrics such as CPU usage, memory usage, disk space, network statistics, and system temperature, you can gain insights into the health and performance of your Raspberry Pi over time.
 
 Feel free to modify the script to include additional diagnostics as needed!
