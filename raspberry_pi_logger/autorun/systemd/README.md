@@ -1,106 +1,115 @@
-To create a systemd service that runs a script every 5 seconds, which creates a symbolic link to the `run_log.sh` file and ensures the necessary directory exists, follow the steps outlined below. This includes creating the required scripts and configuring systemd to execute them.
+Certainly! I'll create a `run_systemd_service.sh` script that sets up a systemd service to run the logger every 5 seconds. This script will also check for the existence of the `logger.py` file and copy the entire repository if it's missing. Additionally, it will add the logger to the system PATH.
 
-### Step 1: Create the Script for Symbolic Link Creation
+For this setup, you'll need to have sudo privileges to create and manage systemd services.
 
-First, create a script called `create_symlink.sh` that will handle the creation of the symbolic link and the necessary directory.
 
-1. **Create the Script**:
-   Open a terminal and create the script file:
-   ```bash
-   nano ~/raspberry_pi_logger/create_symlink.sh
-   ```
 
-2. **Add the Following Content**:
-   This script checks if the `~/raspberry_pi_logger` directory exists, creates it if it doesn't, creates a symbolic link to `run_log.sh`, and adds the directory to the PATH if it's not already included.
-
-   ```bash
-   #!/bin/bash
-
-   # Define the target directory
-   TARGET_DIR="$HOME/raspberry_pi_logger"
-
-   # Check if the directory exists, if not, create it
-   if [ ! -d "$TARGET_DIR" ]; then
-       mkdir -p "$TARGET_DIR"
-   fi
-
-   # Create the symbolic link to run_log.sh in TARGET_DIR
-   ln -sf "$TARGET_DIR/run_log.sh" "$TARGET_DIR/run_log.sh"
-
-   # Add the directory to PATH if not already included
-   if [[ ! $PATH =~ "$TARGET_DIR" ]]; then
-       echo "export PATH=\"\$PATH:$TARGET_DIR\"" >> ~/.bashrc
-       echo "Please run 'source ~/.bashrc' to update your PATH."
-   fi
-   ```
-
-3. **Make the Script Executable**:
-   Run the following command to make the script executable:
-   ```bash
-   chmod +x ~/raspberry_pi_logger/create_symlink.sh
-   ```
-
-### Step 2: Create the Systemd Service and Timer
-
-Next, create the systemd service and timer files to run the script every 5 seconds.
-
-1. **Create the Service File**:
-   Open a terminal and create the service file:
-   ```bash
-   sudo nano /etc/systemd/system/create_symlink.service
-   ```
-
-2. **Add the Following Content**:
-   This service file defines how the script will be executed.
-
-   ```ini
-   [Unit]
-   Description=Create Symbolic Link for run_log.sh every 5 seconds
-
-   [Service]
-   ExecStart=/bin/bash /home/pi/raspberry_pi_logger/create_symlink.sh
-
-   [Install]
-   WantedBy=multi-user.target
-   ```
-
-3. **Create the Timer File**:
-   Next, create the timer file:
-   ```bash
-   sudo nano /etc/systemd/system/create_symlink.timer
-   ```
-
-4. **Add the Following Content**:
-   This timer file triggers the service every 5 seconds.
-
-   ```ini
-   [Unit]
-   Description=Timer for creating symbolic link every 5 seconds
-
-   [Timer]
-   OnUnitActiveSec=5s
-   Unit=create_symlink.service
-
-   [Install]
-   WantedBy=timers.target
-   ```
-
-### Step 3: Enable and Start the Timer
-
-To enable and start the timer, run the following commands:
+Here's the `run_systemd_service.sh` script:
 
 ```bash
-sudo systemctl enable --now create_symlink.timer
+#!/bin/bash
+
+# run_systemd_service.sh
+# This script sets up a systemd service to run the Raspberry Pi logger every 5 seconds.
+# It also checks for the logger.py file and copies the repository if missing.
+
+# Set variables
+USER=$(whoami)
+REPO_URL="https://github.com/robjects-pi/Pi-Logger.git"
+INSTALL_DIR="/home/$USER/Pi-Logger"
+LOGGER_DIR="$INSTALL_DIR/raspberry_pi_logger"
+LOGGER_SCRIPT="$LOGGER_DIR/logger.py"
+SERVICE_NAME="pi-logger"
+
+# Function to check and clone the repository
+check_and_clone_repo() {
+    if [ ! -f "$LOGGER_SCRIPT" ]; then
+        echo "Logger script not found. Cloning the repository..."
+        git clone "$REPO_URL" "$INSTALL_DIR"
+        echo "Repository cloned successfully."
+    fi
+}
+
+# Function to create the systemd service file
+create_systemd_service() {
+    cat << EOF | sudo tee /etc/systemd/system/$SERVICE_NAME.service > /dev/null
+[Unit]
+Description=Raspberry Pi Logger Service
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "while true; do python3 $LOGGER_SCRIPT; sleep 5; done"
+WorkingDirectory=$LOGGER_DIR
+User=$USER
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    echo "Systemd service file created."
+}
+
+# Function to add logger directory to PATH
+add_to_path() {
+    if ! grep -q "$LOGGER_DIR" ~/.bashrc; then
+        echo "export PATH=\$PATH:$LOGGER_DIR" >> ~/.bashrc
+        echo "Logger directory added to PATH. Please restart your terminal or run 'source ~/.bashrc' to apply changes."
+    else
+        echo "Logger directory already in PATH."
+    fi
+}
+
+# Main execution
+check_and_clone_repo
+create_systemd_service
+add_to_path
+
+# Enable and start the service
+sudo systemctl enable $SERVICE_NAME
+sudo systemctl start $SERVICE_NAME
+
+echo "Raspberry Pi Logger service has been set up and started."
+echo "You can check its status with: sudo systemctl status $SERVICE_NAME"
 ```
 
-### Step 4: Verify the Timer Status
+### How to Use This Script
 
-You can check the status of the timer to ensure it is running correctly:
+1. Save this script as `run_systemd_service.sh` in your home directory or any preferred location.
 
-```bash
-systemctl status create_symlink.timer
-```
+2. Make the script executable:
+   ```bash
+   chmod +x run_systemd_service.sh
+   ```
 
-### Conclusion
+3. Run the script:
+   ```bash
+   ./run_systemd_service.sh
+   ```
 
-The setup is complete! The `create_symlink.sh` script will now run every 5 seconds, ensuring that the symbolic link to `run_log.sh` is created and that the directory is included in your PATH. Remember to run `source ~/.bashrc` to update your PATH after the first execution of the script. This will allow you to run `run_log.sh` from anywhere in your terminal.
+### What This Script Does
+
+1. **Checks for Logger Script**: It verifies if `logger.py` exists in the specified directory.
+
+2. **Clones Repository**: If `logger.py` is not found, it clones the entire repository from the specified GitHub URL.
+
+3. **Creates Systemd Service**: Sets up a systemd service that runs the logger every 5 seconds.
+
+4. **Adds to PATH**: Adds the logger directory to the system PATH by modifying `.bashrc`.
+
+5. **Enables and Starts Service**: Enables the service to start on boot and starts it immediately.
+
+### Customization
+
+- **Repository URL**: Replace `https://github.com/yourusername/Pi-Logger.git` with the actual URL of your repository.
+- **Installation Directory**: The script uses `/home/$USER/Pi-Logger`. Modify if you prefer a different location.
+- **Service Name**: The service is named `pi-logger`. You can change this in the `SERVICE_NAME` variable if desired.
+
+### Notes
+
+- This script requires sudo privileges to create and manage the systemd service.
+- After running the script, you may need to restart your terminal or run `source ~/.bashrc` to update your PATH.
+- The systemd service will automatically restart if it fails, ensuring continuous logging.
+- You can modify the sleep duration in the systemd service file to change how often the logger runs.
+
+This setup provides a robust way to ensure your Raspberry Pi logger is always running and easily accessible from anywhere in the system.
