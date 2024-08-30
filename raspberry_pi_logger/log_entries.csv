@@ -1,0 +1,2 @@
+Timestamp,CPU Usage (%),Memory Usage (MB),Disk Usage (%),Network Sent (bytes),Network Received (bytes),Temperature (°C)
+2024-08-30 08:05:28,3.7,274.078125,93.1,10789985,This is a very long string that exceeds the recommended line length of 79 characters.,36.511
