@@ -1,4 +1,16 @@
 # Pi-Logger
+
+- [Pi-Logger](#pi-logger)
+  - [Readme for Raspberry Pi Diagnostics Logger](#readme-for-raspberry-pi-diagnostics-logger)
+    - [Overview](#overview)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Script](#script)
+    - [Explanation](#explanation)
+    - [Running the Script](#running-the-script)
+    - [Conclusion](#conclusion)
+
 ## Readme for Raspberry Pi Diagnostics Logger
 
 ### Overview
