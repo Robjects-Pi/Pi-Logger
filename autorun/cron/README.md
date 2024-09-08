@@ -1,44 +1,66 @@
-# Running our Logger Script at Specific Times Using Cron Jobs
---------------------------------------------
 
+# Running Pi-Logger at Specific Times Using Cron Jobs
 
-## Files
+## Table of Contents
 
-The project directory should have the following structure:
+1. [Introduction](#introduction)
+2. [Prerequisites](#prerequisites)
+3. [File Structure](#file-structure)
+4. [Setting Up Cron Jobs](#setting-up-cron-jobs)
+   - [Scripts Overview](#scripts-overview)
+   - [Cron Job Configuration](#cron-job-configuration)
+5. [Troubleshooting](#troubleshooting)
+6. [Summary and Next Steps](#summary-and-next-steps)
 
+## Introduction
 
-```markdown
+Cron jobs are a powerful tool for scheduling tasks on Unix-like systems. This guide demonstrates how to use cron jobs to automate the execution of the Pi-Logger script at specific times or intervals. By creating start and stop scripts and configuring cron jobs, you can control when the logger runs, allowing for scheduled start and stop times.
+
+This approach is particularly useful when you need to:
+- Log data only during certain hours
+- Manage power consumption
+- Control data storage usage
+- Meet specific data collection requirements
+
+For a deeper understanding of cron jobs, refer to the [Cron Jobs Overview](./cron_jobs_overview.md) document.
+
+## Prerequisites
+
+To implement this cron job setup for the Pi-Logger project, ensure you have:
+
+1. A Raspberry Pi or similar Unix-like system
+2. Basic knowledge of command-line operations
+3. Terminal access or SSH connection to your Raspberry Pi
+4. Pi-Logger project installed on your system
+5. Permissions to create and edit files in the project directory
+6. Familiarity with cron job syntax and usage
+
+## File Structure
+
+The cron subdirectory should have the following structure:
+
+```
 cron/
+├── cron_jobs_overview.md
 ├── README.md
 ├── start_logger.sh
 ├── stop_logger.sh
 ├── run_log.sh
-├── repeat_on_boot/
-│   └── reboot_instructions.md
+└── repeat_on_boot/
+    ├── reboot_instructions.md
+    └── run_logger_on_boot.sh
 ```
 
+## Setting Up Cron Jobs
 
-## Purpose
+### Scripts Overview
 
-Cron jobs are a powerful tool for scheduling tasks on Unix-like systems. By using cron jobs, you can automate the execution of scripts or commands at specific times or intervals.
+#### start_logger.sh
 
-
-
-In this guide, we'll create two scripts (`start_logger.sh` and `stop_logger.sh`) to control the logging process and set up cron jobs to execute these scripts at desired times.  This approach provides more control over when the logger runs and allows for scheduled start and stop times. For example, you can start the logger at 8 AM and stop it at 8 PM every day. This method is useful when you want to log data only during certain hours or at specific intervals due to power consumption, data storage, or data collection requirements.This approach provides a flexible way to manage the logging process based on your scheduling needs.
-
-## Instructions
-
-Follow these steps to set up the start and stop scripts and configure cron jobs to control the logging process:
-
-
-
-### 1. Create start_logger.sh
-
-Create a new file called `start_logger.sh` in the same directory as `run_log.sh`:
+This script starts the logger if it's not already running:
 
 ```bash
 #!/bin/bash
-
 LOGGER_SCRIPT="/home/pi/raspberry_pi_logger/run_log.sh"
 LOG_FILE="/home/pi/raspberry_pi_logger/cron_logger.log"
 
@@ -47,97 +69,77 @@ if [ ! -f "$LOGGER_SCRIPT" ]; then
     exit 1
 fi
 
-# Check if the process is already running
 if pgrep -f "$LOGGER_SCRIPT" > /dev/null; then
     echo "Logger is already running." >> $LOG_FILE
     exit 0
 fi
 
-# Start the logger
 nohup "$LOGGER_SCRIPT" >> $LOG_FILE 2>&1 &
-
 echo "Logger started at $(date)" >> $LOG_FILE
 ```
 
-### 2. Create stop_logger.sh
+#### stop_logger.sh
 
-Create another file called `stop_logger.sh`:
+This script stops the logger:
 
 ```bash
 #!/bin/bash
-
 LOGGER_SCRIPT="/home/pi/raspberry_pi_logger/run_log.sh"
 LOG_FILE="/home/pi/raspberry_pi_logger/cron_logger.log"
 
-# Kill the process
 pkill -f "$LOGGER_SCRIPT"
-
 echo "Logger stopped at $(date)" >> $LOG_FILE
 ```
 
-### 3. Make the scripts executable
+#### run_log.sh
 
-```bash
-chmod +x start_logger.sh stop_logger.sh
-```
+This is the main logging script from the Pi-Logger project. Ensure it's properly configured and located in the correct directory.
 
-### 4. Set up cron jobs
+### Cron Job Configuration
 
+1. Make the scripts executable:
+   ```bash
+   chmod +x start_logger.sh stop_logger.sh
+   ```
 
-To set up cron jobs to start and stop the logger at specific times, we'll add entries to the crontab file. You can choose from the following formats suggested above and apply them to the start and stop scripts:
- 
-#### Find the crontab file for the current user:
+2. Edit the crontab file:
+   ```bash
+   crontab -e
+   ```
 
-```bash
-crontab -e
-```
+3. Add cron job entries. Choose from these options:
 
-#### Add the following lines to the crontab file:
+   - Start at 8 AM and stop at 8 PM daily:
+     ```
+     0 8 * * * /home/pi/raspberry_pi_logger/start_logger.sh
+     0 20 * * * /home/pi/raspberry_pi_logger/stop_logger.sh
+     ```
 
+   - Start logger every 5 minutes:
+     ```
+     */5 * * * * /home/pi/raspberry_pi_logger/start_logger.sh
+     ```
 
-- Option 1: Add lines to start and stop the logger at specific times. For example, to start at 8 AM and stop at 8 PM every day:
+   - Stop logger every 10 minutes:
+     ```
+     */10 * * * * /home/pi/raspberry_pi_logger/stop_logger.sh
+     ```
 
-```bash
-# Start logger at 8 AM
-# The format is as follows: 
-# minute hour day month day_of_week command
-# asterisks (*) represent any value
-
-0 8 * * * /home/pi/raspberry_pi_logger/start_logger.sh
-0 20 * * * /home/pi/raspberry_pi_logger/stop_logger.sh
-```
-
-- Option 2: Add a line to start the logger every 5  minutes:
-
-```bash
-# Start logger every 5 minutes
-*/5 * * * * /home/pi/raspberry_pi_logger/start_logger.sh
-```
-
-- Option 3: Add a line to stop the logger every 10 minutes:
-
-```bash
-# Stop logger every 10 minutes
-*/10 * * * * /home/pi/raspberry_pi_logger/stop_logger.sh
-```
-
-Save and exit the crontab editor.
-
-### 5. Verify the setup
-
-Check the `cron_logger.log` file for any errors or logs generated by the scripts. You can also monitor the logger's status by checking the system logs or the output of the logger script.
-
+4. Save and exit the crontab editor.
 
 ## Troubleshooting
 
-- If the logger doesn't run, check the permissions of the scripts and the Python file.
-- Verify that the paths in the scripts match your actual file locations.
-- Check system logs (`/var/log/syslog`) for any cron-related errors.
-- Ensure that the cron jobs are correctly set up and the scripts are executable.
+If you encounter issues:
 
+- Check script permissions and file locations
+- Verify cron job configurations
+- Review system logs (`/var/log/syslog`) for cron-related errors
+- Examine the `cron_logger.log` file for script-specific logs
 
 ## Summary and Next Steps
 
-By creating start and stop scripts and setting up cron jobs, you can control the logging process based on your desired schedule. This approach provides flexibility and automation for managing the logger, allowing you to log data at specific times or intervals. You can easily modify the cron job entries to suit your needs and adjust the logging process as required.
+This setup allows you to control the Pi-Logger process based on your desired schedule, providing flexibility and automation. You can easily modify the cron job entries to suit your specific needs.
 
-Next, we'll explore how to run the logger script continuously at system boot using a single cron job for efficient and continuous operation. For detailed instructions on setting up cron jobs to run at reboot, please refer to the [reboot instructions](./repeat_on_boot/reboot_instructions.md).
+For instructions on running the logger continuously from system boot, refer to the [reboot instructions](./repeat_on_boot/reboot_instructions.md) in the `repeat_on_boot` directory.
+
+By implementing these cron jobs, you can efficiently manage your Pi-Logger, ensuring it operates according to your specific time and resource requirements.
