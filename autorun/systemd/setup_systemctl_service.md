@@ -112,3 +112,7 @@ echo "You can check its status with: sudo systemctl status $SERVICE_NAME"
 - You can modify the sleep duration in the systemd service file to change how often the logger runs.
 
 This setup provides a robust way to ensure your Raspberry Pi logger is always running and easily accessible from anywhere in the system.
+
+# Next Steps
+
+- **

@@ -5,6 +5,15 @@
 
 ### 1. Modifying the pi-logger.service file
 
+First, let's disable the existing pi-logger service:
+
+```bash
+sudo systemctl stop pi-logger.service
+sudo systemctl disable pi-logger.service
+```
+
+
+
 Edit the `pi-logger.service` file (usually located at `/etc/systemd/system/pi-logger.service`) to include logging commands. Here's how the modified service file should look:
 
 ```ini
