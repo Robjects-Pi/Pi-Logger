@@ -1,5 +1,4 @@
-Certainly! I'll create a `run_systemd_service.sh` script that sets up a systemd service to run the logger every 5 seconds. This script will also check for the existence of the `logger.py` file and copy the entire repository if it's missing. Additionally, it will add the logger to the system PATH.
-
+# Setting Up a Systemd Service for a Raspberry Pi Logger
 For this setup, you'll need to have sudo privileges to create and manage systemd services.
 
 
@@ -15,7 +14,7 @@ Here's the `run_systemd_service.sh` script:
 
 # Set variables
 USER=$(whoami)
-REPO_URL="https://github.com/robjects-pi/Pi-Logger.git"
+REPO_URL="https://github.com/yourusername/Pi-Logger.git"
 INSTALL_DIR="/home/$USER/Pi-Logger"
 LOGGER_DIR="$INSTALL_DIR/raspberry_pi_logger"
 LOGGER_SCRIPT="$LOGGER_DIR/logger.py"
