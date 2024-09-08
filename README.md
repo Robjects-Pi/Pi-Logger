@@ -7,8 +7,9 @@ This project provides a simple script for logging various system diagnostics on 
 
 ### Prerequisites
 
-- Raspberry Pi running Raspberry Pi OS (or any compatible Linux distribution)
-- Python 3 installed
+- Raspberry Pi running Raspberry Pi OS (or any compatible Linux distribution with Systemctl/Systemd services and/or CRON setup enabled)
+- Basic knowledge of Python Script Usage
+- Basic knowledge of Bash Script Usage
 - Basic knowledge of using the terminal
 
 ### Installation
