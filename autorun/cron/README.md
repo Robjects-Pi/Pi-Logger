@@ -73,8 +73,6 @@ if [ ! -f "$LOGGER_SCRIPT" ]; then
     exit 1
 fi
 
-# Run the Python script
-python3 "$LOGGER_SCRIPT"
 ```
 
 ## Instructions
