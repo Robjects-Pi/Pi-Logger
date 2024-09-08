@@ -180,7 +180,7 @@ This project is associated with two YouTube channels, both named X:
    - Content focus: [engineering projects from all areas of the engineerin focused more on technical aspects]
 
 For the specific video related to this project, check out:
-[Video Title]()
+[Coming Soon]()
 
 Both channels are managed by the same creator and often feature complementary content.
 
