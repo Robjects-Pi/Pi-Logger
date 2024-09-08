@@ -16,7 +16,9 @@ This project provides a simple script for logging various system diagnostics on 
     - [Manual Execution](#manual-execution)
     - [Automating the Logging Process](#automating-the-logging-process)
   - [Conclusion](#conclusion)
-  - [Additional Resources \& Supplementary Materials](#additional-resources--supplementary-materials)
+    - [Summary](#summary)
+    - [Additional Resources](#additional-resources)
+    - [Supplementary Materials](#supplementary-materials)
 
 
 
