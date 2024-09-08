@@ -4,16 +4,19 @@ This project provides a simple script for logging various system diagnostics on 
 
 - [Pi-Logger](#pi-logger)
   - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+    - [Hardware](#hardware)
+    - [Software](#software)
   - [Setup and Installation](#setup-and-installation)
-    - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [Usage](#usage)
     - [Logger Script](#logger-script)
-    - [Explanation](#explanation)
-    - [Running the Script](#running-the-script)
-  - [Automating the Logging Process](#automating-the-logging-process)
+  - [Explanation](#explanation)
+  - [Running the Script](#running-the-script)
+    - [Manual Execution](#manual-execution)
+    - [Automating the Logging Process](#automating-the-logging-process)
   - [Conclusion](#conclusion)
-  - [References](#references)
+  - [Additional Resources \& Supplementary Materials](#additional-resources--supplementary-materials)
 
 
 
@@ -175,8 +178,9 @@ The script will log the system diagnostics to a CSV file named `log_entries.csv`
 5.  The `log_data` function calls `get_system_diagnostics` to get the system metrics and appends them to the CSV file.
 6.  The `__main__` block calls the `log_data` function when the script is run.
 
-### Running the Script
+## Running the Script
 
+### Manual Execution
 - To run the script manually, use the command:
   ```bash
   python3 logger.py
@@ -188,7 +192,7 @@ The script will log the system diagnostics to the `log_entries.csv` file in the 
 - To stop the script, press `Ctrl+C` in the terminal.
 - You can run the script manually whenever you want to log the system diagnostics once.
 
-## Automating the Logging Process
+### Automating the Logging Process
 
 For automated logging, you can set up a CRON job or a Systemctl service to run the script at regular intervals. See the following sections for instructions on setting up automation:
 
@@ -200,17 +204,19 @@ For those who are new or want to compare different methods of automation using C
 
 ## Conclusion
 
+### Summary
+
 The Raspberry Pi diagnostics logger provides a simple way to monitor system performance and collect data for analysis. By logging key metrics such as CPU usage, memory usage, disk space, network statistics, and system temperature, you can gain insights into the health and performance of your Raspberry Pi over time.
 
 Feel free to modify the script to include additional diagnostics as needed!
 
-## Additional Resources & Supplementary Materials
-
+### Additional Resources 
 - [Raspberry Pi](https://www.raspberrypi.org/)
   - [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/)
   - [Raspberry Pi OS Download](https://www.raspberrypi.org/software/operating-systems/)
   - [Raspberry Pi OS Installation Guide](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
 
+### Supplementary Materials
 - [Working with Python](https://www.python.org/)
   - [Python Documentation](https://docs.python.org/3/)
   - [Python Basics](https://www.learnpython.org/)
@@ -227,3 +233,4 @@ Feel free to modify the script to include additional diagnostics as needed!
   - [Bash Scripting Tutorial](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)
   - [CRON Tutorial](https://www.ostechnix.com/a-beginners-guide-to-cron-jobs/)
   - [Systemctl Tutorial](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal)
+
