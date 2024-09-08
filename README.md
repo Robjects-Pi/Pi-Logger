@@ -9,7 +9,7 @@ This project provides a simple script for logging various system diagnostics on 
     - [Software](#software)
   - [Setup and Installation](#setup-and-installation)
     - [Installation](#installation)
-    - [Usage](#usage)
+    - [First Run](#first-run)
     - [Logger Script](#logger-script)
   - [Explanation](#explanation)
   - [Running the Script](#running-the-script)
@@ -19,6 +19,7 @@ This project provides a simple script for logging various system diagnostics on 
     - [Summary](#summary)
     - [Additional Resources](#additional-resources)
     - [Supplementary Materials](#supplementary-materials)
+
 
 
 
@@ -91,7 +92,7 @@ If you are new to Raspberry Pi or any of the above concepts, don't worry! You ca
 
 4. **Copy the script**: Paste the provided Python script into the `logger.py` file and save it.
 
-### Usage
+### First Run
 
 To run the logger, simply execute the script (filled with the provided [code below](#logger-script)) using Python. The script will automatically log the diagnostics to `log_entries.csv`.
 
