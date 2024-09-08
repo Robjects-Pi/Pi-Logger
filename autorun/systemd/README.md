@@ -16,7 +16,7 @@ Here's the `run_systemd_service.sh` script:
 USER=$(whoami)
 REPO_URL="https://github.com/yourusername/Pi-Logger.git"
 INSTALL_DIR="/home/$USER/Pi-Logger"
-LOGGER_DIR="$INSTALL_DIR/raspberry_pi_logger"
+LOGGER_DIR="/home/$USER/raspberry_pi_logger"
 LOGGER_SCRIPT="$LOGGER_DIR/logger.py"
 SERVICE_NAME="pi-logger"
 
