@@ -1,4 +1,4 @@
-Certainly! To create a record of when the `pi-logger.service` runs, we'll modify the systemd service file to log its start and stop times. We'll also create a separate script to view these logs. Here's how we can do this:
+
 
 1. First, let's modify the `pi-logger.service` file to log its activity.
 2. Then, we'll create a new script to easily view these logs.
