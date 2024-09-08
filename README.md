@@ -1,6 +1,5 @@
-# Pi-Logger
-- [Pi-Logger](#pi-logger)
-  - [Readme for Raspberry Pi Diagnostics Logger](#readme-for-raspberry-pi-diagnostics-logger)
+# Pi-Logger- [Pi-Logger](#pi-logger)
+  - [Raspberry Pi Diagnostics Logger](#raspberry-pi-diagnostics-logger)
     - [Overview](#overview)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -11,18 +10,50 @@
     - [Conclusion](#conclusion)
 
 
-## Readme for Raspberry Pi Diagnostics Logger
-
-### Overview
+## Raspberry Pi Diagnostics Logger
 
 This project provides a simple script for logging various system diagnostics on a Raspberry Pi. The script collects data such as CPU usage, memory usage, disk space, network statistics, and system temperature, and appends this information to a CSV file named `log_entries.csv`. If the CSV file does not exist, it will be created automatically.
 
+
+### Overview
+
+The Raspberry Pi diagnostics logger script is designed to monitor and log key system metrics for a Raspberry Pi. By running this script at regular intervals, you can track the performance and health of your Raspberry Pi over time. The script collects the following system diagnostics:
+
+- CPU usage as a percentage
+- Memory usage in megabytes
+- Disk usage as a percentage
+- Network statistics (bytes sent and received)
+- System temperature (for Raspberry Pi)
+
+The script logs these metrics to a CSV file named `log_entries.csv`, which can be analyzed to identify trends, troubleshoot performance issues, or monitor system health. You can run the script manually or set up a cron job to automate the logging process at regular intervals.
+
+
 ### Prerequisites
 
-- Raspberry Pi running Raspberry Pi OS (or any compatible Linux distribution with Systemctl/Systemd services and/or CRON setup enabled)
-- Basic knowledge of Python Script Usage
-- Basic knowledge of Bash Script Usage
-- Basic knowledge of using the terminal
+Before using the Raspberry Pi diagnostics logger, make sure you have the following:
+
+1. Raspberry Pi running Raspberry Pi OS (or any compatible Linux distribution with Systemctl/Systemd services and/or CRON setup enabled)
+
+> - For the latest version of Raspberry Pi OS, visit the [Raspberry Pi OS download page](https://www.raspberrypi.org/software/operating-systems/). Follow the [Raspberry Pi OS installation guide](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) for detailed instructions on how to install it on your Raspberry Pi. 
+
+
+2. Basic knowledge of the following concepts:
+   1. Python programming language
+   2. Basic Linux commands and file management
+   3. Using the terminal on Raspberry Pi
+   4. Using CRON jobs (for automated logging)
+   5. Using Systemctl/Systemd services (for automated logging)
+   6. Using Bash scripts (for automation)
+   7. Using CSV files for data storage
+   8. Using text editors like Nano or Vim
+   9. 
+
+
+> Note: This script is designed to run on a Raspberry Pi with the default configuration. It may require modifications to work on other systems or distributions. 
+
+
+
+If you are new to Raspberry Pi or any of the above concepts, don't worry! You can learn as you go by following the instructions provided in this guide. I'll provide some additional resources and references to help you understand the concepts better.
 
 ### Installation
 
