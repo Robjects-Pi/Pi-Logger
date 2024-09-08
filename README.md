@@ -79,9 +79,12 @@ If you are new to Raspberry Pi or any of the above concepts, don't worry! You ca
 
 2. **Install required packages**: You may need to install the `psutil` library for system monitoring.
    ```bash
+   sudo apt install python3-full
    sudo apt install python3-pip
-   pip3 install psutil
+   sudo apt install python3-psutil
    ```
+
+- **Note**: The `psutil` library is used to collect system metrics in the script. If you encounter any issues with the installation, refer to the [psutil documentation](https://psutil.readthedocs.io/en/latest/) for troubleshooting tips.
 
 3. **Download the script**: Create a directory for your project and download the script.
    ```bash
@@ -90,17 +93,23 @@ If you are new to Raspberry Pi or any of the above concepts, don't worry! You ca
    nano logger.py
    ```
 
-4. **Copy the script**: Paste the provided Python script into the `logger.py` file and save it.
+4. **Copy the script**: 
+   Copy the provided Python script from the [Logger Script](#logger-script) section and paste it into the `logger.py` file.
+  
+ 
+5. **Save the script**: Press `Ctrl+X`, then `Y`, and `Enter` to save the file.
 
-### First Run
+ > **Note**: 
+ >- Try to keep the script in a separate directory to avoid any conflicts with the existing files from either the repository or your system.
+ >- You can also download the original script directly using `wget` by running the following command:
+    >```bash
+    >wget https://raw.githubusercontent.com/Robjects-Pi/Pi-Logger/main/logger.py
+    >```
+  >
 
-To run the logger, simply execute the script (filled with the provided [code below](#logger-script)) using Python. The script will automatically log the diagnostics to `log_entries.csv`.
 
-```bash
-python3 logger.py
-```
 
-### Logger Script 
+### Logger.py Script 
 
 Here is the complete script for the Raspberry Pi diagnostics logger in Python (save it as `logger.py`):
 
@@ -162,11 +171,27 @@ if __name__ == '__main__':
 
 The script will log the system diagnostics to a CSV file named `log_entries.csv` in the same directory where the script is located. You can modify the script to include additional diagnostics or customize the output as needed.
 
-
+### First Run
 
 ![Raspberry Pi Logger Script Manual Run](./images/raspberry_pi_logger_script_output.gif)
 
-## Explanation
+To run the logger, simply execute the script (filled with the provided [code below](#logger-script)) using Python. Open a terminal on your Raspberry Pi and run the following command:
+
+```bash
+python3 logger.py
+```
+
+
+The script will log the system diagnostics to the `log_entries.csv` file in the same directory where the script is located. 
+
+You can view the log entries by opening the CSV file in a text editor or spreadsheet application, here is an image of the output after running the script manually 2 times:
+
+![Raspberry Pi Logger CSV Output](./images/log_entries_sample_data.png)
+
+
+
+
+## Explanation of the Script
 
 1.  The script first imports the necessary modules: `os`, `csv`, `psutil`, and `datetime`.
 2.  Then, it defines the `csv_file` variable to store the name of the CSV file where the log entries will be stored.
@@ -189,11 +214,7 @@ The script will log the system diagnostics to a CSV file named `log_entries.csv`
   python3 logger.py
   ```
 
-The script will log the system diagnostics to the `log_entries.csv` file in the same directory where the script is located.
-  
-- You can view the log entries by opening the CSV file in a text editor or spreadsheet application.
-- To stop the script, press `Ctrl+C` in the terminal.
-- You can run the script manually whenever you want to log the system diagnostics once.
+You can run the script manually whenever you want to log the system diagnostics once. The script will append the data to the CSV file each time it is run, allowing you to track the system metrics over time, even if you don't have the csv file created initially.
 
 ### Automating the Logging Process
 
