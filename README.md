@@ -149,3 +149,41 @@ Please note that the script is designed to run on a Raspberry Pi with the defaul
 The Raspberry Pi diagnostics logger provides a simple way to monitor system performance and collect data for analysis. By logging key metrics such as CPU usage, memory usage, disk space, network statistics, and system temperature, you can gain insights into the health and performance of your Raspberry Pi over time.
 
 Feel free to modify the script to include additional diagnostics as needed!
+
+
+
+## License
+
+This project is licensed under the Creative Commons Attribution 4.0 International License.
+
+Pi-Logger © 2024 by Robjects-Pi (Channels Robjects/RobjectsProjects) is licensed under CC BY 4.0 (Creative Commons Attribution 4.0 International License). To view a copy of this license, visit [https://creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0).
+
+You are free to:
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+Under the following terms:
+- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+
+## Related YouTube Content
+
+This project is associated with two YouTube channels, both named X:
+
+1. Robjects Channel:
+   - Username: [Robjects]
+   - [Robjects Channel](https://www.youtube.com/@Robjects)
+   - Content focus: [Engineering projects from all areas of the engineering]
+
+2. RobjectsProjects Channel:
+   - Username: [RobjectsProjects]
+   - [RobjectsProjects Channel](https://www.youtube.com/@RobjectsProjects
+   - Content focus: [engineering projects from all areas of the engineerin focused more on technical aspects]
+
+For the specific video related to this project, check out:
+[Video Title]()
+
+Both channels are managed by the same creator and often feature complementary content.
+
+## Contact Information
+
+For inquiries or feedback related to this project, please contact the creator via GitHub Discussions or the associated YouTube channels through the comments section or community tab.
