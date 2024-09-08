@@ -192,3 +192,28 @@ Please note that the script is designed to run on a Raspberry Pi with the defaul
 The Raspberry Pi diagnostics logger provides a simple way to monitor system performance and collect data for analysis. By logging key metrics such as CPU usage, memory usage, disk space, network statistics, and system temperature, you can gain insights into the health and performance of your Raspberry Pi over time.
 
 Feel free to modify the script to include additional diagnostics as needed!
+
+### References
+
+- [Raspberry Pi](https://www.raspberrypi.org/)
+  - [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/)
+  - [Raspberry Pi OS Download](https://www.raspberrypi.org/software/operating-systems/)
+  - [Raspberry Pi OS Installation Guide](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
+
+- [Working with Python](https://www.python.org/)
+  - [Python Documentation](https://docs.python.org/3/)
+  - [Python Basics](https://www.learnpython.org/)
+  - [Python Tutorials](https://realpython.com/tutorials/basics/)
+  
+- [Working with Linux](https://www.linux.org/)
+  - [Linux Commands](https://www.linux.org/commands/)
+  - [Bash Scripting](https://www.gnu.org/software/bash/)
+  - [Cron vs Systemctl](https://www.redhat.com/sysadmin/cron-vs-systemd-timers)
+
+ 
+- [Tutorials](https://www.tutorialspoint.com/index.htm)
+  - [Python Tutorial](https://www.tutorialspoint.com/python/index.htm)
+  - [Linux Tutorial](https://www.tutorialspoint.com/unix/index.htm)
+  - [Bash Scripting Tutorial](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)
+  - [CRON Tutorial](https://www.ostechnix.com/a-beginners-guide-to-cron-jobs/)
+  - [Systemctl Tutorial](https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal)
